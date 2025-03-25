@@ -1,0 +1,6 @@
+LLM4CVE WEIGHTS:https://sites.google.com/view/llm4cve
+LLM4CVE PAPER:https://arxiv.org/html/2501.03446v1#S5.SS1
+KERNEL GPT paper:https://arxiv.org/pdf/2401.00563
+KERNEL GPT repo:https://github.com/ise-uiuc/KernelGPT
+Model to try:https://huggingface.co/rootxhacker/CodeAstra-7B
+Dataset to look for:https://arxiv.org/pdf/2503.07770
