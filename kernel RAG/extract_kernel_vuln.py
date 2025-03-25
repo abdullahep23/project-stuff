@@ -17,12 +17,12 @@ headers = {
 }
 
 # Get total number of CVEs first
-print("🔄 Fetching total CVE count...")
+print(" Fetching total CVE count...")
 params_total = {"keywordSearch": "Linux Kernel", "resultsPerPage": 1, "startIndex": 0}
 response_total = requests.get(url, params=params_total, headers=headers)
 
 if response_total.status_code != 200:
-    print(f"❌ Error fetching total count: {response_total.status_code} - {response_total.text}")
+    print(f" Error fetching total count: {response_total.status_code} - {response_total.text}")
     exit()
 
 total_cves = response_total.json().get("totalResults", 0)
@@ -30,7 +30,7 @@ total_cves = response_total.json().get("totalResults", 0)
 # Start index for the last 100 CVEs
 start_index = max(0, total_cves - FETCH_COUNT)
 
-print(f"🔄 Fetching last {FETCH_COUNT} CVEs (from index {start_index} to {total_cves})...")
+print(f" Fetching last {FETCH_COUNT} CVEs (from index {start_index} to {total_cves})...")
 
 # Parameters for fetching last 100 CVEs
 params = {
@@ -46,7 +46,7 @@ output_file = "linux_kernel_last_100_cves.json"
 response = requests.get(url, params=params, headers=headers)
 
 if response.status_code != 200:
-    print(f"❌ Error fetching CVEs: {response.status_code} - {response.text}")
+    print(f" Error fetching CVEs: {response.status_code} - {response.text}")
     exit()
 
 # Parse response
