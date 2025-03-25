@@ -4,3 +4,4 @@ KERNEL GPT paper:https://arxiv.org/pdf/2401.00563
 KERNEL GPT repo:https://github.com/ise-uiuc/KernelGPT
 Model to try:https://huggingface.co/rootxhacker/CodeAstra-7B
 Dataset to look for:https://arxiv.org/pdf/2503.07770
+Test craw4ai for the github patches that are taken from api
