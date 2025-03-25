@@ -4,7 +4,7 @@ from crewai import Agent, Task, Crew
 # Set up Ollama Model (Ensure Ollama is running)
 LLM_MODEL = "ollama/qwen2.5-coder:7b"
 
-# Step 1️⃣: Define Agents
+
 code_validator = Agent(
     name="Code Validator",
     role="Validates whether the input is a C or C++ code snippet.",
@@ -37,7 +37,7 @@ exploit_generator = Agent(
     llm=LLM_MODEL,
 )
 
-# Step 2️⃣: Define Tasks
+
 validate_task = Task(
     description="""
     Check if the input is a valid C or C++ code snippet. 
@@ -67,55 +67,55 @@ exploit_task = Task(
 )
 
 
-# 🚀 Step 3️⃣: Dynamic Execution Function
+
 def main():
     user_code = input("Enter your C/C++ code snippet:\n")
 
-    # 1️⃣ Run Validation Task
-    print("\n🔍 Running Code Validation...\n")
+    
+    print("\n Running Code Validation...\n")
     validate_crew = Crew(agents=[code_validator], tasks=[validate_task], verbose=True)
     validation_result = validate_crew.kickoff(inputs={"Check if the input is a valid C or C++ code snippet.": user_code})
 
     # Convert CrewOutput to string
     validation_result = str(validation_result)
 
-    print("\n🔎 Validation Result:\n", validation_result)
+    print("\n Validation Result:\n", validation_result)
 
-    # 🚨 Stop if validation fails
+    
     if "Not in the correct format" in validation_result:
-        print("\n❌ Invalid code format detected. Stopping execution.")
+        print("\nInvalid code format detected. Stopping execution.")
         return
 
-    # 2️⃣ Run Vulnerability Scanner Task
-    print("\n🔍 Running Vulnerability Scanner...\n")
+    
+    print("\n Running Vulnerability Scanner...\n")
     vuln_scan_crew = Crew(agents=[vuln_scanner], tasks=[vuln_scan_task], verbose=True)
     vuln_scan_result = vuln_scan_crew.kickoff(inputs={"Analyze this C/C++ code for vulnerabilities": validation_result})
 
-    # Convert CrewOutput to string
+
     vuln_scan_result = str(vuln_scan_result)
 
-    print("\n🔎 Vulnerability Scan Result:\n", vuln_scan_result)
+    print("\n Vulnerability Scan Result:\n", vuln_scan_result)
 
-    # ✅ Check if vulnerabilities were found
+    
     if "The code snippet seems safe." in vuln_scan_result:
-        print("\n✅ No vulnerabilities found. Stopping execution.")
+        print("\n No vulnerabilities found. Stopping execution.")
         return
 
-    # 3️⃣ Run Patch Generator Task
-    print("\n🛠️ Running Patch Generator...\n")
+    
+    print("\n Running Patch Generator...\n")
     patch_crew = Crew(agents=[patch_generator], tasks=[patch_task], verbose=True)
     patch_result = patch_crew.kickoff(inputs={"Fix vulnerabilities in this code": vuln_scan_result})
 
-    print("\n🔧 Patch Result:\n", patch_result)
+    print("\n Patch Result:\n", patch_result)
 
-    # 4️⃣ Run Exploit Generator Task
-    print("\n💥 Running Exploit Generator...\n")
+    
+    print("\n Running Exploit Generator...\n")
     exploit_crew = Crew(agents=[exploit_generator], tasks=[exploit_task], verbose=True)
     exploit_result = exploit_crew.kickoff(inputs={"Generate exploit for this vulnerability": vuln_scan_result})
 
-    print("\n🚀 Exploit Result:\n", exploit_result)
+    print("\nExploit Result:\n", exploit_result)
 
-    print("\n✅ Workflow Completed.")
+    print("\n Workflow Completed.")
 
 
 if __name__ == "__main__":
