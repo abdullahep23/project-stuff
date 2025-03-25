@@ -13,18 +13,18 @@ file_path = "C:/Users/Techcom/OneDrive/Desktop/sem 7/fyp/maybe datasets/split_da
 try:
     df = pd.read_json(file_path)
 except ValueError as e:
-    print(f"❌ Error loading JSON: {e}")
+    print(f" Error loading JSON: {e}")
     sys.exit(1)
 except FileNotFoundError:
-    print(f"❌ File not found: {file_path}")
+    print(f" File not found: {file_path}")
     sys.exit(1)
 
-print("📄 Loaded DataFrame:")
+print("Loaded DataFrame:")
 print(df.head())
 
 # Check if 'func' column exists
 if 'func' not in df.columns:
-    raise KeyError("❌ Column 'func' not found in dataset. Check JSON format!")
+    raise KeyError(" Column 'func' not found in dataset. Check JSON format!")
 
 # Drop rows where 'func' is missing
 df = df.dropna(subset=['func'])
@@ -49,4 +49,4 @@ df['processed_code'] = processed_functions
 output_file = "C:/Users/Techcom/OneDrive/Desktop/sem 7/fyp/maybe datasets/split_data/cleaned_diversevul_0.json"
 df.to_json(output_file, orient='records', lines=True)
 
-print(f"✅ Processing complete. Cleaned dataset saved as '{output_file}'.")
+print(f" Processing complete. Cleaned dataset saved as '{output_file}'.")
